@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizard</title>
+    <style>
+        .banner{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url("https://allesebike.de/cdn/shop/files/ShopBanner.png?v=1690142813&width=2000");
+            background-color: #cccccc; /* Used if the image is unavailable */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Do not repeat the image */
+            background-size: cover; /* Resize the background image to cover the entire container */
+        }
+        #wizard {
+            margin: 10px;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+            max-width: 600px; /* Set maximum width for wizard */
+            width: 80%;
+        }
+        .header {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        #options{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        #options > button {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid snow;
+            border-radius: 10px;
+            background-color: snow;
+        }
+        .logo {
+            height: 2rem;
+            width: 5rem;
+            object-fit: contain;
+        }
+        /* Progress bar */
+        .progress-bar {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .progress-step {
+            float: left;
+            width: 33.33%;
+            height: 10px;
+            background-color: #4CAF50;
+        }
+        #backButton{
+            margin: 0.5rem 0rem;
+            padding: 0.25rem 1rem;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+        .battery{
+            color: inherit;
+            text-decoration: inherit;
+        }
+        @media screen and (max-width: 480px) {
+            #options{
+                flex-direction: row;
+            }
+        #options > button {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid snow;
+            border-radius: 10px;
+            background-color: snow;
+        }
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+    <div id="wizard">
+        <div class="header">
+            <i class="fa-regular fa-circle-question"></i>
+            <span id="question">Welche Marke hat ihr E-Bike?</span>
+            </div>
+        <div id="options">
+            <button onClick="year()">
+                <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Bosch_logo.png" alt="Bosch Logo">
+            </button>
+            <button onClick="year()">
+                <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/d/de/Yamaha_Motor_logo.svg" alt="Yamaha Logo">
+            </button>
+            <button onClick="year()">
+                <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/9/96/Brose_Fahrzeugteile_logo.svg" alt="Brose Logo">
+            </button>
+            <button onClick="year()">
+                <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Shimano_logo.svg" alt="Shimano Logo">
+            </button onClick="year()">
+            <button onClick="year()">
+                <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Panasonic_logo_%28Blue%29.svg/640px-Panasonic_logo_%28Blue%29.svg.png" alt="Panasonic Logo">
+            </button>
+            <button onClick="year()">
+                <img class="logo" src="https://getlogo.net/wp-content/uploads/2021/10/bafang-logo-vector.png" alt="Bafang Logo">
+            </button>
+        </div>
+         <!-- Progress bar -->
+         <div class="progress-bar">
+             <div class="progress-step" style="width: 33.33%;"></div>
+         </div>
+         <button onclick="goBack()" id="backButton" style="display: none;">Zurück</button>
+    </div>
+    </div>
+    <script>
+        function year() {
+            document.getElementById('options').innerHTML = "<button onclick='battery()'>2024</button><button onclick='battery()'>2023</button><button onclick='battery()'>2022</button><button onclick='battery()'>2021</button><button onclick='battery()'>2020</button><button onclick='battery()'>2019</button><button onclick='battery()'>2018</button><button onclick='battery()'>2017</button><button onclick='battery()'>2016</button><button onclick='battery()'>2015</button><button onclick='battery()'>2014</button><button onclick='battery()'>2013</button><button onclick='battery()'>2012</button>";
+            document.getElementById('question').innerText = "Welches Baujahr hat ihr E-Bike?";
+            var progressBar = document.querySelector('.progress-step');
+            progressBar.style.width = '66.66%'; // Update progress to step 2
+            document.getElementById('backButton').style.display = 'inline'; // Show the back button
+        }
+
+        function battery() {
+            document.getElementById('options').innerHTML = "<button><a class='battery' href='https://allesebike.de/products/bosch-2022-smartes-system-tuning-yolobox-50-km-h' target='_blank'>600Wh</a></button><button><a class='battery' href='https://allesebike.de/products/bosch-2022-smartes-system-tuning-yolobox-50-km-h' target='_blank'>450Wh</a></button><button><a class='battery' href='https://allesebike.de/products/bosch-2022-smartes-system-tuning-yolobox-50-km-h' target='_blank'>400Wh</a></button><button><a class='battery' href='https://allesebike.de/products/bosch-2022-smartes-system-tuning-yolobox-50-km-h' target='_blank'>360Wh</a></button><button><a class='battery' href='https://allesebike.de/products/bosch-2022-smartes-system-tuning-yolobox-50-km-h' target='_blank'>300Wh</a></button>";
+            document.getElementById('question').innerText = "Welches Batterie hat ihr E-Bike?";
+            var progressBar = document.querySelector('.progress-step');
+            progressBar.style.width = '100%'; // Update progress to step 3
+            document.getElementById('backButton').style.display = 'inline'; // Show the back button
+        }
+
+        function goBack() {
+            document.getElementById('options').innerHTML = '<div id="options">' +
+    '<button onClick="year()">' +
+    '<img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Bosch_logo.png" alt="Bosch Logo">' +
+    '</button>' +
+    '<button onClick="year()">' +
+    '<img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/d/de/Yamaha_Motor_logo.svg" alt="Yamaha Logo">' +
+    '</button>' +
+    '<button onClick="year()">' +
+    '<img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/9/96/Brose_Fahrzeugteile_logo.svg" alt="Brose Logo">' +
+    '</button>' +
+    '<button onClick="year()">' +
+    '<img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Shimano_logo.svg" alt="Shimano Logo">' +
+    '</button>' +
+    '<button onClick="year()">' +
+    '<img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Panasonic_logo_%28Blue%29.svg/640px-Panasonic_logo_%28Blue%29.svg.png" alt="Panasonic Logo">' +
+    '</button>' +
+    '<button onClick="year()">' +
+    '<img class="logo" src="https://getlogo.net/wp-content/uploads/2021/10/bafang-logo-vector.png" alt="Bafang Logo">' +
+    '</button>' +
+    '</div>';
+
+            document.getElementById('question').innerText = "Welche Marke hat ihr E-Bike?";
+            var progressBar = document.querySelector('.progress-step');
+            progressBar.style.width = '33.33%'; // Update progress to step 1
+            document.getElementById('backButton').style.display = 'none'; // Hide the back button again
+        }
+    </script>
+    <script src="https://kit.fontawesome.com/c4a0b8a59e.js" crossorigin="anonymous"></script>
+</body>
+</html>
