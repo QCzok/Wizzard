@@ -5,165 +5,221 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wizard</title>
     <style>
-        .banner{
+        #banner{
             display: flex;
             justify-content: center;
             align-items: center;
             background-image: url("https://allesebike.de/cdn/shop/files/ShopBanner.png?v=1690142813&width=2000");
-            background-color: #cccccc; /* Used if the image is unavailable */
-            background-position: center; /* Center the image */
-            background-repeat: no-repeat; /* Do not repeat the image */
-            background-size: cover; /* Resize the background image to cover the entire container */
+            background-color: #cccccc;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
         #wizard {
-            margin: 10px;
+            margin: 20px;
             background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
-            max-width: 600px; /* Set maximum width for wizard */
-            width: 80%;
+            max-width: 1200px; /* Set maximum width for wizard */
         }
         .header {
-            font-size: 18px;
-            margin-bottom: 10px;
+            font-size: 35px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #555555;
+            font-family: sans-serif;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
         }
         #options{
             display: flex;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
+            text-overflow: ellipsis;
         }
-        #options > button {
+       .panel {
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            flex-direction: column;
             margin: 10px;
             padding: 10px;
             border: 1px solid snow;
             border-radius: 10px;
             background-color: snow;
+            width: 8rem;;
+            height: 8rem;
         }
         .logo {
-            height: 2rem;
-            width: 5rem;
+            height: auto;
+            width: 80%;
             object-fit: contain;
+            flex-grow: 40;
         }
-        /* Progress bar */
-        .progress-bar {
-            width: 100%;
-            background-color: #ddd;
-            border-radius: 5px;
-            overflow: hidden;
-            margin-top: 20px;
-        }
-
-        .progress-step {
-            float: left;
-            width: 33.33%;
-            height: 10px;
-            background-color: #4CAF50;
-        }
-        #backButton{
-            margin: 0.5rem 0rem;
-            padding: 0.25rem 1rem;
-            border-radius: 10px;
-            font-size: 12px;
-        }
-        .battery{
-            color: inherit;
-            text-decoration: inherit;
+        #label {
+            color: #555555;
+            font-family: sans-serif;
+            word-break: break-all;
+            overflow: hidden; 
+            margin: 0;
         }
         @media screen and (max-width: 480px) {
             #options{
                 flex-direction: row;
             }
-        #options > button {
-            margin: 10px;
-            padding: 10px;
-            border: 1px solid snow;
-            border-radius: 10px;
-            background-color: snow;
+            #wizard {
+                margin: 10px;
+                padding: 10px;
+            }
+            .panel {
+                width: 6rem;;
+                height: 6rem;
+            }
+            .header {
+                font-size: 28px;
         }
         }
     </style>
 </head>
 <body>
-    <div class="banner">
-    <div id="wizard">
-        <div class="header">
-            <i class="fa-regular fa-circle-question"></i>
-            <span id="question">Welche Marke hat ihr E-Bike?</span>
+    <div id="banner">
+        <div id="wizard">
+            <div class="header">
+                <p id="question">Schnellauswahl-Assistent: Welche Marke hat ihr E-Bike?</p>
             </div>
-        <div id="options">
-            <button onClick="year()">
-                <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Bosch_logo.png" alt="Bosch Logo">
-            </button>
-            <button onClick="year()">
-                <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/d/de/Yamaha_Motor_logo.svg" alt="Yamaha Logo">
-            </button>
-            <button onClick="year()">
-                <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/9/96/Brose_Fahrzeugteile_logo.svg" alt="Brose Logo">
-            </button>
-            <button onClick="year()">
-                <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Shimano_logo.svg" alt="Shimano Logo">
-            </button onClick="year()">
-            <button onClick="year()">
-                <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Panasonic_logo_%28Blue%29.svg/640px-Panasonic_logo_%28Blue%29.svg.png" alt="Panasonic Logo">
-            </button>
-            <button onClick="year()">
-                <img class="logo" src="https://getlogo.net/wp-content/uploads/2021/10/bafang-logo-vector.png" alt="Bafang Logo">
-            </button>
+            <div id="options"></div>
         </div>
-         <!-- Progress bar -->
-         <div class="progress-bar">
-             <div class="progress-step" style="width: 33.33%;"></div>
-         </div>
-         <button onclick="goBack()" id="backButton" style="display: none;">Zurück</button>
     </div>
-    </div>
+
     <script>
-        function year() {
-            document.getElementById('options').innerHTML = "<button onclick='battery()'>2024</button><button onclick='battery()'>2023</button><button onclick='battery()'>2022</button><button onclick='battery()'>2021</button><button onclick='battery()'>2020</button><button onclick='battery()'>2019</button><button onclick='battery()'>2018</button><button onclick='battery()'>2017</button><button onclick='battery()'>2016</button><button onclick='battery()'>2015</button><button onclick='battery()'>2014</button><button onclick='battery()'>2013</button><button onclick='battery()'>2012</button>";
-            document.getElementById('question').innerText = "Welches Baujahr hat ihr E-Bike?";
-            var progressBar = document.querySelector('.progress-step');
-            progressBar.style.width = '66.66%'; // Update progress to step 2
-            document.getElementById('backButton').style.display = 'inline'; // Show the back button
+                // Parse the JSON data
+                var jsonData = {
+            "SectionContent": {
+    "title": "Tuning-Auswahl Assistent",
+    "GridElementsArray": [
+          { "imageSource": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Bosch_logo.png",
+            "target": 
+              {"SectionContent": {
+                "title": "Welche Bosch Generation?",
+                "GridElementsArray": [
+                { "imageSource": "http://remar-sport.pl/531-thickbox_default/wyswietlacz-bosch-hmi.jpg",
+                  "text":"Calssic / Gen1",
+                  "target": "https://allesebike.de/products/bosch-gen-1-4-tuning-yolobox-pro-50-km-h-ein-und-ausschaltbar"},
+                  { "imageSource": "https://i.ebayimg.com/images/g/lNMAAOSwgbliwlE2/s-l1600.jpg",
+                  "target": "https://allesebike.de/products/yamaha-giant-neue-motoren-tuning-yolobox-50-km-h"},
+                  { "imageSource": "https://www.offbeatbikes.co.uk/wp-content/uploads/2023/03/Bosch-eBike-smart-system-MY22-EN_CMYK_left-2048x893.jpg",
+                    "target": "https://en.wikipedia.org/wiki/Bosch_(company)"},
+                  { "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Chefferie_of_Bafang_-_panoramio.jpg/1280px-Chefferie_of_Bafang_-_panoramio.jpg",
+                    "text": "lalala lalalal lalala hi lol",
+                    "target": "ReturnAction"},
+                  { "imageSource": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Bosch_logo.png",
+                    "text": "Ein/Ausschaltbar ß?!",
+                    "target":"https://allesebike.de/products/bosch-gen-1-4-tuning-yolobox-pro-50-km-h-ein-und-ausschaltbar"}
+              ]
+              }}
+          },
+            { "imageSource": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Yamaha-Logo.png",
+            "target": "https://allesebike.de/products/yamaha-giant-neue-motoren-tuning-yolobox-50-km-h"},
+            { "imageSource": "https://www.clker.com/cliparts/Q/d/l/A/K/L/shop-online-button-md.png",
+              "target": "ReturnAction",
+              "text": "zurück"},
+            { "imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Chefferie_of_Bafang_-_panoramio.jpg/1280px-Chefferie_of_Bafang_-_panoramio.jpg",
+              "text": "lalala lalalal lalala hi lol",
+              "target": "https://allesebike.de/products/bafang-ebike-tuning-yolobox-50-km-h-fur-3-pin-speed-sensor"},
+            { "imageSource": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Bosch_logo.png",
+              "text": "Ein/Ausschaltbar ß?!",
+              "target":"https://allesebike.de/products/bosch-gen-1-4-tuning-yolobox-pro-50-km-h-ein-und-ausschaltbar"}
+        ], 
+  "SpaceConstrainedGridElementsArray": [
+    { "imageSource": "https://www.clker.com/cliparts/Q/d/l/A/K/L/shop-online-button-md.png",
+      "text":"Hier klicken um zu beginnen...",
+      "target": 
+        {"SectionContent": {
+          "title": "Welche Marke hat der Antrieb des Fahrrads?",
+          "GridElementsArray": [
+          { "imageSource": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Bosch_logo.png",
+            "target": 
+              {"SectionContent": {
+                "title": "Welche Bosch Generation?",
+                "GridElementsArray": [
+                { "imageSource": "http://remar-sport.pl/531-thickbox_default/wyswietlacz-bosch-hmi.jpg",
+                  "text":"Calssic / Gen1",
+                  "target": "https://allesebike.de/products/bosch-gen-1-4-tuning-yolobox-pro-50-km-h-ein-und-ausschaltbar"},
+                  { "imageSource": "https://i.ebayimg.com/images/g/lNMAAOSwgbliwlE2/s-l1600.jpg",
+                  "target": "https://allesebike.de/products/yamaha-giant-neue-motoren-tuning-yolobox-50-km-h"},
+                  { "imageSource": "https://www.offbeatbikes.co.uk/wp-content/uploads/2023/03/Bosch-eBike-smart-system-MY22-EN_CMYK_left-2048x893.jpg",
+                    "target": "https://en.wikipedia.org/wiki/Bosch_(company)"},
+                  { "imageSource": "https://commons.wikimedia.org/wiki/Category:Bafang#/media/File:Chefferie_of_Bafang_-_panoramio.jpg",
+                    "text": "lalala lalalal lalala hi lol",
+                    "target": "ReturnAction"},
+                  { "imageSource": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Bosch_logo.png",
+                    "text": "Ein/Ausschaltbar ß?!",
+                    "target":"https://allesebike.de/products/bosch-gen-1-4-tuning-yolobox-pro-50-km-h-ein-und-ausschaltbar"}
+              ]
+              }}
+          },
+            { "imageSource": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Yamaha-Logo.png",
+            "target": "https://allesebike.de/products/yamaha-giant-neue-motoren-tuning-yolobox-50-km-h"},
+            { "imageSource": "https://www.clker.com/cliparts/Q/d/l/A/K/L/shop-online-button-md.png",
+              "target": "ReturnAction",
+              "text": "zurück"},
+            { "imageSource": "https://commons.wikimedia.org/wiki/Category:Bafang#/media/File:Chefferie_of_Bafang_-_panoramio.jpg",
+              "text": "lalala lalalal lalala hi lol",
+              "target": "https://allesebike.de/products/bafang-ebike-tuning-yolobox-50-km-h-fur-3-pin-speed-sensor"},
+            { "imageSource": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Bosch_logo.png",
+              "text": "Ein/Ausschaltbar ß?!",
+              "target":"https://allesebike.de/products/bosch-gen-1-4-tuning-yolobox-pro-50-km-h-ein-und-ausschaltbar"}
+        ]
+        }}}
+  ]  
+  }
+};
+
+        function fillOptions(gridElementsArray) {
+            var optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = ""; // Clear previous content
+
+            // Iterate over GridElementsArray and create HTML elements
+            gridElementsArray.forEach(function(item) {
+              //  button.innerHTML = "<div onclick='myFunction(" + JSON.stringify(item) + ")' class='panel'><img class='logo' src='" + item.imageSource + "' alt=''><p id='label'>" + item.text + "</p></div>";
+                
+                // Add button to optionsDiv
+                optionsDiv.innerHTML = optionsDiv.innerHTML + "<div onclick='myFunction(" + JSON.stringify(item) + ")' class='panel'><img class='logo' src='" + item.imageSource + "' alt=''><p id='label'>" + item.text + "</p></div>";
+            });
         }
 
-        function battery() {
-            document.getElementById('options').innerHTML = "<button><a class='battery' href='https://allesebike.de/products/bosch-2022-smartes-system-tuning-yolobox-50-km-h' target='_blank'>600Wh</a></button><button><a class='battery' href='https://allesebike.de/products/bosch-2022-smartes-system-tuning-yolobox-50-km-h' target='_blank'>450Wh</a></button><button><a class='battery' href='https://allesebike.de/products/bosch-2022-smartes-system-tuning-yolobox-50-km-h' target='_blank'>400Wh</a></button><button><a class='battery' href='https://allesebike.de/products/bosch-2022-smartes-system-tuning-yolobox-50-km-h' target='_blank'>360Wh</a></button><button><a class='battery' href='https://allesebike.de/products/bosch-2022-smartes-system-tuning-yolobox-50-km-h' target='_blank'>300Wh</a></button>";
-            document.getElementById('question').innerText = "Welches Batterie hat ihr E-Bike?";
-            var progressBar = document.querySelector('.progress-step');
-            progressBar.style.width = '100%'; // Update progress to step 3
-            document.getElementById('backButton').style.display = 'inline'; // Show the back button
+        function myFunction(item) {
+            if (item.target === "ReturnAction") {
+                goBack();
+            } else if (typeof item.target === 'string') {
+                window.location.href = item.target;
+            } else if (item.target && item.target.SectionContent && item.target.SectionContent.GridElementsArray) {
+                fillOptions(item.target.SectionContent.GridElementsArray);
+                updateQuestion(item.target.SectionContent.title);
+                document.getElementById('backButton').style.display = 'block'; // Show the back button
+            }
         }
+
+        // Function to update question text
+        function updateQuestion(title) {
+            document.getElementById('question').innerHTML = title;
+        }
+
+        // Call functions to initialize options and question
+        fillOptions(jsonData.SectionContent.GridElementsArray);
+        updateQuestion(jsonData.SectionContent.title);
 
         function goBack() {
-            document.getElementById('options').innerHTML = '<div id="options">' +
-    '<button onClick="year()">' +
-    '<img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Bosch_logo.png" alt="Bosch Logo">' +
-    '</button>' +
-    '<button onClick="year()">' +
-    '<img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/d/de/Yamaha_Motor_logo.svg" alt="Yamaha Logo">' +
-    '</button>' +
-    '<button onClick="year()">' +
-    '<img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/9/96/Brose_Fahrzeugteile_logo.svg" alt="Brose Logo">' +
-    '</button>' +
-    '<button onClick="year()">' +
-    '<img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Shimano_logo.svg" alt="Shimano Logo">' +
-    '</button>' +
-    '<button onClick="year()">' +
-    '<img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Panasonic_logo_%28Blue%29.svg/640px-Panasonic_logo_%28Blue%29.svg.png" alt="Panasonic Logo">' +
-    '</button>' +
-    '<button onClick="year()">' +
-    '<img class="logo" src="https://getlogo.net/wp-content/uploads/2021/10/bafang-logo-vector.png" alt="Bafang Logo">' +
-    '</button>' +
-    '</div>';
+            var initialGridElements = jsonData.SectionContent.GridElementsArray;
+            fillOptions(initialGridElements);
+            updateQuestion(jsonData.SectionContent.title);
 
-            document.getElementById('question').innerText = "Welche Marke hat ihr E-Bike?";
             var progressBar = document.querySelector('.progress-step');
             progressBar.style.width = '33.33%'; // Update progress to step 1
             document.getElementById('backButton').style.display = 'none'; // Hide the back button again
         }
     </script>
-    <script src="https://kit.fontawesome.com/c4a0b8a59e.js" crossorigin="anonymous"></script>
 </body>
 </html>
+
